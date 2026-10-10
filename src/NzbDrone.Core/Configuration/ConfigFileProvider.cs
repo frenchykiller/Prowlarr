@@ -241,6 +241,13 @@ namespace NzbDrone.Core.Configuration
 
         public string AllowedHosts => _serverOptions.AllowedHosts ?? GetValue("AllowedHosts", string.Empty);
 
+        public string OidcAuthority => _authOptions.OidcAuthority ?? GetValue("OidcAuthority", string.Empty, persist: false);
+        public string OidcClientId => _authOptions.OidcClientId ?? GetValue("OidcClientId", string.Empty, persist: false);
+        public string OidcClientSecret => _authOptions.OidcClientSecret ?? GetValue("OidcClientSecret", string.Empty, persist: false);
+        public string OidcUserIdentifier => _authOptions.OidcUserIdentifier ?? GetValue("OidcUserIdentifier", string.Empty, persist: false);
+        public string OidcScopes => _authOptions.OidcScopes ?? GetValue("OidcScopes", "openid profile email", persist: false);
+
+
         public bool AnalyticsEnabled => _logOptions.AnalyticsEnabled ?? GetValueBoolean("AnalyticsEnabled", true, persist: false);
 
         public string Branch => _updateOptions.Branch ?? GetValue("Branch", "master").ToLowerInvariant();
