@@ -45,6 +45,11 @@ namespace NzbDrone.Core.Configuration
         int LogRotate { get; }
         int LogSizeLimit { get; }
         bool FilterSentryEvents { get; }
+        string OidcAuthority { get; }
+        string OidcClientId { get; }
+        string OidcClientSecret { get; }
+        string OidcUserIdentifier { get; }
+        string OidcScopes { get; }
         string Branch { get; }
         string ApiKey { get; }
         string SslCertPath { get; }

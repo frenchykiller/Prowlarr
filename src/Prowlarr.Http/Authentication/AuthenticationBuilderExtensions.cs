@@ -6,7 +6,6 @@ using System.Net.Security;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -26,7 +25,7 @@ namespace Prowlarr.Http.Authentication
         private const string AuthorizedProperty = "prowlarr.authorized";
         private static readonly Logger Logger = LogManager.GetLogger(nameof(AuthenticationBuilderExtensions));
         private static readonly Regex CookieNameRegex = new(@"[^a-z0-9]+", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Lock BackchannelHttpHandlerLock = new();
+        private static readonly object BackchannelHttpHandlerLock = new();
         private static SocketsHttpHandler _backchannelHttpHandler;
 
         public static AuthenticationBuilder AddApiKey(this AuthenticationBuilder authenticationBuilder, string name, Action<ApiKeyAuthenticationOptions> options)
@@ -306,7 +305,7 @@ namespace Prowlarr.Http.Authentication
 
         private static string GetCleanInstanceName(string instanceName)
         {
-            instanceName = instanceName.RemoveDiacritics();
+            instanceName = instanceName.RemoveAccent();
             instanceName = CookieNameRegex.Replace(instanceName, string.Empty);
 
             return instanceName;

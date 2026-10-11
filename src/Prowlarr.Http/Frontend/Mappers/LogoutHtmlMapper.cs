@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Microsoft.AspNetCore.Http;
 using NLog;
 using NzbDrone.Common.Disk;
 using NzbDrone.Common.EnvironmentInfo;
@@ -37,9 +36,9 @@ namespace Prowlarr.Http.Frontend.Mappers
             return resourceUrl.StartsWith("/logout");
         }
 
-        protected override string GetHtmlText(HttpContext context)
+        protected override string GetHtmlText()
         {
-            var html = base.GetHtmlText(context);
+            var html = base.GetHtmlText();
             var theme = _configFileProvider.Theme;
 
             html = html.Replace("_THEME_", theme);
